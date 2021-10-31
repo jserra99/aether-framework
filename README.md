@@ -1,4 +1,4 @@
-# vision-framework
+# aether-framework
 
 A one-stop shop for your vision system.
 
