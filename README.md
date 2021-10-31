@@ -30,4 +30,4 @@ A guide on how to use and setup chameleon vision will be procured at a later tim
 # Continuation
 
 In this section we will go over the framework code for lighting up the neopixels.
-Please open up neo-framework.py in your preferred code editior.
+Please open up neopixel-framework.py in your preferred code editior.
