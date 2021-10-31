@@ -1,4 +1,4 @@
-# aether-framework
+# vision-framework
 
 A one-stop shop for your vision system.
 
@@ -21,3 +21,13 @@ For ease of use, we will be using remote desktop instead of putty when setting u
 Launch "Remote Desktop", an application that should be pre-installed on you windows 10 computer.
 For the computer simply put: "10.7.53.X"
 Now that you are in launch the terminal in the top left corner, all of the necessary programs should already be on the pi but may need to be updated.
+Simply type in "sh hello-world.sh" and hit enter, say 'Y' to any prompts that may pop up.
+Now chameleon vision should be fully updated and installed on the pi.
+To verify this type in "sudo java -jar chameleon-vision.jar" and hit enter, if everything goes correctly it should detect the pi-camera and launch a server at the address: "localhost:5800" on the pi or "10.7.53.X:5800" from the host pc.
+If it is not working do not feel bad it is probably not your fault.
+A guide on how to use and setup chameleon vision will be procured at a later time.
+
+# Continuation
+
+In this section we will go over the framework code for lighting up the neopixels.
+Please open up neo-framework.py in your preferred code editior.
