@@ -2,6 +2,8 @@
 
 A one-stop shop for your vision system.
 
+IMPORTANT: https://docs.wpilib.org/en/stable/docs/software/vision-processing/wpilibpi/index.html
+
 # Getting Started:
 
 If you are completely done assembling your aether-vision then you are now in the right place.
