@@ -7,7 +7,7 @@ import neopixel
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-num_pixels = 24 # change this value depending on the amount of neo pixels being used, this will be standardized in aether later on
+num_pixels = 4 # change this value depending on the amount of neo pixels being used, this will be standardized in aether later on
 pixels = neopixel.NeoPixel(board.D18,num_pixels) # make sure the data line of the neopixel/IC chip is connected to digital pin 18
 presets = {
     'off': pixels.fill((0,0,0)),
