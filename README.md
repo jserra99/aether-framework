@@ -3,6 +3,7 @@
 A one-stop shop for your vision system.
 
 IMPORTANT: https://docs.wpilib.org/en/stable/docs/software/vision-processing/wpilibpi/index.html
+IMPORTANT: https://learn.adafruit.com/adafruit-neopixel-uberguide/python-circuitpython
 
 # Getting Started:
 
