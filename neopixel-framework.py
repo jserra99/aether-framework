@@ -7,14 +7,11 @@ import neopixel
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
-num_pixels = 4 # change this value depending on the amount of neo pixels being used, this will be standardized in aether later on
-pixels = neopixel.NeoPixel(board.D18,num_pixels) # make sure the data line of the neopixel/IC chip is connected to digital pin 18
-presets = {
-    'off': pixels.fill((0,0,0)),
-    'green': pixels.fill((0,255,0)),
-    'red': pixels.fill((255,0,0)),
-    'blue': pixels.fill((0,0,255))
-}
+num_pixels = 3
+ORDER = neopixel.RGBW
+pixel_pin = board.D18 # Neo pixel digital out connected to the 6th pin down on the second column
+brightness_ = 0.01
+pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_, auto_write=False, pixel_order=ORDER)
 
 DEBUG = True # change this to False to get rid of processor-wasteful print statements
 
@@ -45,10 +42,12 @@ limelight = table.getAutoUpdateValue('limelight', False) # First parameter is th
 while True:
     if limelight.value:
         # light up neopixel
-        presets['green']
+        pixels.fill((0, 255, 0, 0))
+        pixels.show()
         debug('green')
     else:
         # make sure neopixel is off
-        presets['off']
+        pixels.fill((0, 0, 0, 0))
+        pixels.show()
         debug('off')
-    sleep(0.01)
+    sleep(0.01) # try to find a better method, maybe something asyncronous?
