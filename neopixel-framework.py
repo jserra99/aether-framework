@@ -10,7 +10,7 @@ GPIO.setmode(GPIO.BCM)
 num_pixels = 3
 ORDER = neopixel.RGBW
 pixel_pin = board.D18 # Neo pixel digital out connected to the 6th pin down on the second column
-brightness_ = 1
+brightness_ = 1.0
 pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_, auto_write=False, pixel_order=ORDER)
 
 DEBUG = True # change this to False to get rid of processor-wasteful print statements
