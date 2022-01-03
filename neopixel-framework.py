@@ -28,6 +28,7 @@ def connectionListener(connected, info):
         notified[0] = True
         connected = True
         pixels.fill((0, 0, 0, 0))
+        pixels.show()
         cond.notify()
 
 NetworkTables.initialize(server='10.7.53.2') # roborio-753-frc.local
@@ -36,6 +37,7 @@ NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 with cond:
     print('Waiting')
     pixels.fill((255, 0, 0, 0))
+    pixels.show()
     if not notified[0]:
         cond.wait()
 
