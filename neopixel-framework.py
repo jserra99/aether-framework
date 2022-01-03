@@ -35,6 +35,7 @@ NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 with cond:
     print('Waiting')
     if not notified[0]:
+        pixels.fill((255, 0, 0, 0))
         cond.wait()
 
 # Our main code goes here
@@ -47,20 +48,17 @@ def main():
     while True:
         timeElapsed = time.perf_counter() - startTime
         pixels.brightness = 0.05
-        if connected:
-            if robotEnabled:
-                if limelight:
-                    pixels.brightness = 1.0
-                    pixels.fill((0, 255, 0, 0))
-                else:
-                    pixels.fill((0, 0, 0, 0))
+        if robotEnabled:
+            if limelight:
+                pixels.brightness = 1.0
+                pixels.fill((0, 255, 0, 0))
             else:
-                if (timeElapsed % 2) >= 1:
-                    pixels.fill((0, 0, 255, 0))
-                else:
-                    pixels.fill((0, 0, 0, 0))
+                pixels.fill((0, 0, 0, 0))
         else:
-            pixels.fill((255, 0, 0, 0))
+            if (timeElapsed % 2) >= 1:
+                pixels.fill((0, 0, 255, 0))
+            else:
+                pixels.fill((0, 0, 0, 0))
         pixels.show()
         time.sleep(0.02)
 
