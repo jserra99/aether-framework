@@ -21,11 +21,12 @@ def debug(message):
 
 cond = threading.Condition()
 notified = [False]
-
+connected = False
 def connectionListener(connected, info):
     print(info, '; Connected=%s' % connected)
     with cond:
         notified[0] = True
+        connected = True
         cond.notify()
 
 NetworkTables.initialize(server='10.7.53.2') # roborio-753-frc.local
@@ -37,33 +38,36 @@ with cond:
         cond.wait()
 
 # Our main code goes here
-table = NetworkTables.getTable('SmartDashboard')
-limelight = table.getAutoUpdateValue('limelight', False) # First parameter is the name of the instance, the second is the default value if nothing is found.
-'''while True:
-    if limelight.value:
-        # light up neopixel
-        pixels.fill((0, 255, 0, 0))
+
+def main():
+    table = NetworkTables.getTable('SmartDashboard')
+    limelight = table.getAutoUpdateValue('limelight', False) # First parameter is the name of the instance, the second is the default value if nothing is found.
+    robotEnabled = table.getAutoUpdateValue('robotEnabledPlaceholder', False)
+    startTime = time.perf_counter()
+    while True:
+        timeElapsed = time.perf_counter() - startTime
+        pixels.brightness = 0.05
+        if connected:
+            if robotEnabled:
+                if limelight:
+                    pixels.brightness = 1.0
+                    pixels.fill((0, 255, 0, 0))
+                else:
+                    pixels.fill((0, 0, 0, 0))
+            else:
+                if (timeElapsed % 2) >= 1:
+                    pixels.fill((0, 0, 255, 0))
+                else:
+                    pixels.fill((0, 0, 0, 0))
+        else:
+            pixels.fill((255, 0, 0, 0))
         pixels.show()
-        debug('green')
-    else:
-        # make sure neopixel is off
+        time.sleep(0.02)
+
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+        print("exception: exiting program")
         pixels.fill((0, 0, 0, 0))
-        pixels.show()
-        debug('off')
-    time.sleep(0.01) # try to find a better method, maybe something asyncronous?'''
-    
-
-    
-'''
-NOTE: Start of psuedocode
-loop forever:
-    if the robot is disabled:
-        make the pixels blink blue on and off every second but in between blinks check if the robot is enabled 
-
-    else if the robot is enabled:
-        if the rio is sending the signal to shine green:
-            fill the pixels
-            show the pixels
-        otherwise:
-            completely turn the pixels off
-'''
+        GPIO.cleanup()
