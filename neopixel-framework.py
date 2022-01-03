@@ -1,7 +1,7 @@
 # Docs: https://robotpy.readthedocs.io/en/stable/guide/nt.html#client-initialization-driver-station-coprocessor
 import threading
 from networktables import NetworkTables
-from time import sleep
+import time
 import board
 import neopixel
 import RPi.GPIO as GPIO
@@ -28,7 +28,7 @@ def connectionListener(connected, info):
         notified[0] = True
         cond.notify()
 
-NetworkTables.initialize(server='10.7.53.2')
+NetworkTables.initialize(server='10.7.53.2') # roborio-753-frc.local
 NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
 
 with cond:
@@ -39,7 +39,7 @@ with cond:
 # Our main code goes here
 table = NetworkTables.getTable('SmartDashboard')
 limelight = table.getAutoUpdateValue('limelight', False) # First parameter is the name of the instance, the second is the default value if nothing is found.
-while True:
+'''while True:
     if limelight.value:
         # light up neopixel
         pixels.fill((0, 255, 0, 0))
@@ -50,4 +50,20 @@ while True:
         pixels.fill((0, 0, 0, 0))
         pixels.show()
         debug('off')
-    sleep(0.01) # try to find a better method, maybe something asyncronous?
+    time.sleep(0.01) # try to find a better method, maybe something asyncronous?'''
+    
+
+    
+'''
+NOTE: Start of psuedocode
+loop forever:
+    if the robot is disabled:
+        make the pixels blink blue on and off every second but in between blinks check if the robot is enabled 
+
+    else if the robot is enabled:
+        if the rio is sending the signal to shine green:
+            fill the pixels
+            show the pixels
+        otherwise:
+            completely turn the pixels off
+'''
