@@ -18,7 +18,7 @@ pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_, auto_w
 pixels.fill((255, 0, 0, 0))
 pixels.show()
 cond = threading.Condition()
-NetworkTables.initialize(server='192.168.1.20') # roborio-753-frc.local
+NetworkTables.initialize(server='roborio-753-frc.local') # roborio-753-frc.local
 sd = NetworkTables.getTable("SmartDashboard")
 
 # Our main code goes here
@@ -28,27 +28,34 @@ def main():
     robotEnabled = sd.getAutoUpdateValue('robotEnabled', False)
     startTime = time.perf_counter()
     while True:
-        timeElapsed = time.perf_counter() - startTime
-        if robotEnabled.value:
-            if limelight.value:
-                pixels.brightness = 1.0
-                pixels.fill((0, 255, 0, 0))
+        if NetworkTables.isConnected():
+            timeElapsed = time.perf_counter() - startTime
+            if robotEnabled.value:
+                if limelight.value:
+                    pixels.brightness = 1.0
+                    pixels.fill((0, 255, 0, 0))
+                else:
+                    pixels.fill((0, 0, 0, 0))
             else:
-                pixels.fill((0, 0, 0, 0))
+                pixels.brightness = 0.05
+                if (timeElapsed % 2) >= 1:
+                    pixels.fill((0, 0, 255, 0))
+                else:
+                    pixels.fill((0, 0, 0, 0))
         else:
             pixels.brightness = 0.05
             if (timeElapsed % 2) >= 1:
-                pixels.fill((0, 0, 255, 0))
+                pixels.fill((255, 0, 0, 0))
             else:
                 pixels.fill((0, 0, 0, 0))
         pixels.show()
         time.sleep(0.02)
 
-
-if __name__ == '__main__':
+main()
+'''if __name__ == '__main__':
     try:
         main()
     except:
         print("exception; exiting program")
         pixels.fill((0, 0, 0, 0))
-        GPIO.cleanup()
+        GPIO.cleanup()'''
