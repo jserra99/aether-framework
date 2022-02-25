@@ -18,7 +18,7 @@ pixels = neopixel.NeoPixel(pixel_pin, num_pixels, brightness=brightness_, auto_w
 pixels.fill((255, 0, 0, 0))
 pixels.show()
 cond = threading.Condition()
-NetworkTables.initialize(server='roborio-753-frc.local') # roborio-753-frc.local
+NetworkTables.initialize(server='roborio-753-frc.local')
 sd = NetworkTables.getTable("SmartDashboard")
 
 # Our main code goes here
@@ -51,11 +51,10 @@ def main():
         pixels.show()
         time.sleep(0.02)
 
-main()
-'''if __name__ == '__main__':
+if __name__ == '__main__':
     try:
         main()
     except:
         print("exception; exiting program")
         pixels.fill((0, 0, 0, 0))
-        GPIO.cleanup()'''
+        GPIO.cleanup()
