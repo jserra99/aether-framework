@@ -28,8 +28,8 @@ def main():
     robotEnabled = sd.getAutoUpdateValue('robotEnabled', False)
     startTime = time.perf_counter()
     while True:
+        timeElapsed = time.perf_counter() - startTime
         if NetworkTables.isConnected():
-            timeElapsed = time.perf_counter() - startTime
             if robotEnabled.value:
                 if limelight.value:
                     pixels.brightness = 1.0
